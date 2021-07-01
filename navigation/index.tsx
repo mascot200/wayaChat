@@ -6,12 +6,16 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, View, StyleSheet } from 'react-native';
+import Colors  from '../constants/Colors';
+import { Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
+
+
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import MainTabNavigator from './MainTabNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -29,9 +33,42 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+    <Stack.Navigator screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.light.tint,
+          shadowOpacity: 0,
+          elevation: 0
+        }, 
+        headerTintColor: Colors.light.background,
+        headerTitleAlign: 'left',
+        headerTitleStyle: {
+          fontWeight:'bold'
+        }
+       
+       }}>
+      <Stack.Screen name="Root"
+      options={{ 
+        title: 'WayaChat',
+        headerRight: () => (
+          <View style={styles.icons}>
+            <Octicons name="search" size={24} color={'white'} />
+             <MaterialCommunityIcons name="dots-vertical" size={24} color={'white'} />
+          </View>
+        )
+      }}
+       component={MainTabNavigator} 
+       />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }
+
+
+const styles = StyleSheet.create({
+     icons: {
+       flexDirection: 'row',
+       width: 60,
+       justifyContent: 'space-between',
+       marginRight: 25
+     }
+})

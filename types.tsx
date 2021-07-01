@@ -6,11 +6,15 @@
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  WayaChat: undefined;
 };
 
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+export type MainTabParamList = {
+  Chats: undefined;
+  Status: undefined;
+  Calls: undefined;
+  Camera: undefined;
+
 };
 
 export type TabOneParamList = {
