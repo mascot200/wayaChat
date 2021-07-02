@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   WayaChat: undefined;
+  ChatRoom: undefined;
 };
 
 export type MainTabParamList = {

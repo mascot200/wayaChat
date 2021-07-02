@@ -6,18 +6,20 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName, View, StyleSheet } from 'react-native';
+import { ColorSchemeName, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
 import Colors  from '../constants/Colors';
-import { Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
-
+import { Octicons, MaterialCommunityIcons,Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
 
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import MainTabNavigator from './MainTabNavigator';
+import ChatRoomScreen from '../screens/ChatRoom';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+ 
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -58,6 +60,19 @@ function RootNavigator() {
       }}
        component={MainTabNavigator} 
        />
+        <Stack.Screen
+           name="ChatRoom"
+           component={ChatRoomScreen}
+           options={({ route  }) => ({
+             title: route.params.name,
+              headerRight: () => (
+                <View style={styles.icons}>
+                 <FontAwesome5 name="video" size={24} color="white" />
+                 <MaterialIcons name="call" size={24} color="white" />
+                </View>
+           )
+           })}
+           />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
@@ -70,5 +85,16 @@ const styles = StyleSheet.create({
        width: 60,
        justifyContent: 'space-between',
        marginRight: 25
-     }
+     },
+
+     avatar:{
+      width: 40,
+      height:40,
+      marginTop:4,
+      borderRadius:100
+  },
+  arrow:{
+    marginTop:10,
+  }
+
 })
