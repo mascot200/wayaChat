@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-wayachat-dev-54117-authRole",
+      "UnauthRoleArn": "arn:aws:iam::876906184463:role/amplify-wayachat-dev-54117-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::876906184463:role/amplify-wayachat-dev-54117-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-wayachat-dev-54117-deployment",
+      "UnauthRoleName": "amplify-wayachat-dev-54117-unauthRole",
+      "StackName": "amplify-wayachat-dev-54117",
+      "StackId": "arn:aws:cloudformation:us-east-1:876906184463:stack/amplify-wayachat-dev-54117/15da1e60-e5f0-11eb-9f76-0a8742d8c83d",
+      "AmplifyAppId": "d1f2kh9aufirrz"
+    },
+    "categories": {
+      "auth": {
+        "wayachat66adc061": {}
+      }
+    }
+  }
+}

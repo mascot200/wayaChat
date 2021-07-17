@@ -16,10 +16,13 @@ import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import MainTabNavigator from './MainTabNavigator';
 import ChatRoomScreen from '../screens/ChatRoom';
+import ContactsScreen from '../screens/ContactsScreen';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
  
+
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -34,6 +37,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const onPress = () => {
+    console.log("Search for users")
+  }
+  
   return (
     <Stack.Navigator screenOptions={{
         headerStyle: {
@@ -72,6 +79,22 @@ function RootNavigator() {
                 </View>
            )
            })}
+           />
+
+
+        <Stack.Screen
+           name="Contacts"
+           component={ContactsScreen}
+           options={{
+            headerRight: () => (
+              <TouchableWithoutFeedback onPress={onPress}>
+                   <View style={styles.icons}>
+                     <Octicons name="search" size={24} color={'white'} />
+                  </View>
+              </TouchableWithoutFeedback>
+             
+             )
+           }}
            />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

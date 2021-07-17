@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "wayachat66adc061": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

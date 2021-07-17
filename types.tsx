@@ -8,6 +8,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   WayaChat: undefined;
   ChatRoom: undefined;
+  Contacts: undefined;
 };
 
 export type MainTabParamList = {
@@ -29,18 +30,21 @@ export type TabTwoParamList = {
 export type User = {
   id: String,
   name: String,
-  imageUrl: String
+  imageUrl: String,
+  status: String
 }
 
 export type Message = {
   id: String,
   content: String,
-  createdAt: String
+  createdAt:String,
+  user: User
+
 
 }
 
 export type ChatRoom = {
   id: String,
-  users: [User];
+  users: User[];
   lastMessage: Message
 }
