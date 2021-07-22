@@ -9,6 +9,7 @@ export type RootStackParamList = {
   WayaChat: undefined;
   ChatRoom: undefined;
   Contacts: undefined;
+  
 };
 
 export type MainTabParamList = {
@@ -39,8 +40,13 @@ export type Message = {
   content: String,
   createdAt:String,
   user: User
+}
 
-
+export type Status = {
+  id: String,
+  content: String,
+  createdAt:String,
+  user: User
 }
 
 export type ChatRoom = {
