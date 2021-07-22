@@ -4,6 +4,8 @@ import { User } from '../../types'
 import styles from '../ContactsList/style'
 import  moment  from 'moment'
 import { useNavigation } from '@react-navigation/native'
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { createChatRoom, createChatRoomUser } from '../../src/graphql/mutations';
 
 export type ContactsListItemPros = {
     user: User;
@@ -17,8 +19,62 @@ const ContactsListItem = (props: ContactsListItemPros) => {
 
     const navigation = useNavigation();
 
-    const onClick = () => {
-       
+    const onClick =  async () => {
+       // Create a new chat room between the auth user and the clicked user and
+       try  {
+        const newChatRoomData = await API.graphql(
+            graphqlOperation(
+                createChatRoom,
+                { input: {}}
+            )
+        )
+
+        if(!newChatRoomData.data){
+            console.log("failed to create chatroom")
+            return;
+        }
+        const newChatRoom = newChatRoomData.data.createChatRoom;
+        console.log(newChatRoom)
+
+         // Add the clicked user to the created chatroom 
+      
+         const newUserChatRoom = await API.graphql(
+             graphqlOperation(
+                 createChatRoomUser,
+                 { 
+                     input: { 
+                        userID: user.id, 
+                        chatRoomID: newChatRoom.id
+                    }
+                }
+             )
+         )
+           
+
+       // Add authenticated user to the chat room
+       const userInfo = await Auth.currentAuthenticatedUser();
+       await API.graphql(
+       graphqlOperation(
+           createChatRoomUser,
+            { 
+                input: {
+                    userID: userInfo.attributes.sub, 
+                    chatRoomID: newChatRoom.id
+                }
+            }
+       )
+   )
+
+      // Then move the auth user to the chatroom route 
+        navigation.navigate("ChatRoom", { 
+            id: newChatRoom.id, 
+            name:user.name
+        })
+
+        } catch (error) {
+            
+        }
+      
     }
 
 

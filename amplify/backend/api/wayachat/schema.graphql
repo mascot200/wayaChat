@@ -2,5 +2,27 @@ type User @model {
   id: ID!
   name: String!
   imageUri: String
-  status: String
+  status: String!
+  chatRoomUser: [ChatRoomUser] @connection(keyName: "byUser", fields:["id"])
+
+}
+
+# Many to many relationship
+type ChatRoomUser
+   @model
+   @key(name: "byUser", fields:["userID", "chatRoomID"])
+   @key(name: "byChatRoom", fields:["chatRoomID", "userID"])
+ {
+  id: ID!
+  userID: ID!
+  chatRoomID: ID!
+  user: User @connection(fields:["userID"])
+  chatRoom: ChatRoom @connection(fields:["chatRoomID"])
+}
+
+# the main chat room to connect two users to chat 
+type ChatRoom @model {
+ id: ID!
+ chatRoomUser: [ChatRoomUser] @connection(keyName: "byChatRoom", fields:["id"])
+
 }
