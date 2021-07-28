@@ -46,7 +46,7 @@ useEffect( () => {
           const newUser = {
             id: userInfo.attributes.sub,
             name: userInfo.username,
-            imageUri:"",
+            imageUri:"https://waya-images.s3.amazonaws.com/avatar.png",
             status:"Hey, am using wayaChat"
 
           }
