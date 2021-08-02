@@ -4,7 +4,7 @@ import styles from '../InputBox/style'
 import { useState, useEffect } from 'react'
 import { MaterialCommunityIcons,MaterialIcons, FontAwesome5, Entypo, Fontisto } from '@expo/vector-icons'
 import { API, Auth, graphqlOperation, input } from 'aws-amplify'
-import { createMessage } from '../../src/graphql/mutations';
+import { createMessage, updateChatRoom } from '../../src/graphql/mutations';
 import { messagesByChatRoom} from '../../src/graphql/queries'
 const InputBox = (props) => {
     const { chatRoomID } = props
@@ -22,9 +22,26 @@ const InputBox = (props) => {
         console.log('recording.....')
     }
 
-    const onSendPress =  async () => {
+    const updateChatRoomLastMessage = async (messageId: string) => {
         try {
             await API.graphql(
+                graphqlOperation(
+                    updateChatRoom, {
+                        input: {
+                            id: chatRoomID,
+                            lastMessageID: messageId
+                        }
+                    }
+                )
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const onSendPress =  async () => {
+        try {
+        const newMessageData =    await API.graphql(
                 graphqlOperation(
                     createMessage,
                     { 
@@ -37,8 +54,9 @@ const InputBox = (props) => {
                     
                 )
             )
+     await updateChatRoomLastMessage(newMessageData.data.createMessage.id)
         } catch (error) {
-            
+             console.log(error); 
         }
 
     }
