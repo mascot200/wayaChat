@@ -53,10 +53,11 @@ const ChatListItems = (props: ChatListItemProps) => {
           
              <View style={styles.midContainer}>
                 <Text style={styles.username}>{otherUser.name}</Text>
-                <Text style={styles.lastMessage}>{chatRoom.lastMessage ? chatRoom.lastMessage.content : ""}</Text>
+                <Text style={styles.lastMessage}>{chatRoom.lastMessage ? `${chatRoom.lastMessage.user.name} : ${chatRoom.lastMessage.content }` : ""}</Text>
             </View>
            </View>
            <Text style={styles.time}>
+             
                {chatRoom.lastMessage && moment(chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}
                
             </Text>

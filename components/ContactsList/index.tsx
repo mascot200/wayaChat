@@ -40,22 +40,10 @@ const ContactsListItem = (props: ContactsListItemPros) => {
 
      
 
-        let filter = {
-            and: [{ userID: {eq:user.id} },
-                 { chatRoomUser: {eq:userInfo.attributes.sub} }]
-        };
 
-        const userRoomUser =  await API.graphql(
-            graphqlOperation({ query: listChatRoomUsers, variables: { filter: filter}})
-            
-        )
-
-        if(userRoomUser){
-
-        }else{
             const newChatRoom = newChatRoomData.data.createChatRoom;
             console.log(newChatRoom)
-        }
+        
        
 
          // Add the clicked user to the created chatroom 
